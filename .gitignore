@@ -1,0 +1,17 @@
+#Exclude FANUCLIB/Inc/*.h
+FANUCLIB/Inc/*.h
+
+#Exclude FANUCLIB/Lib/*.o
+FANUCLIB/Lib/*.o
+
+#exclude various temp directories
+map/
+step*/
+
+# Exclude specific files only in the root directory
+/*.o
+/*.ELF
+/*.MEM
+
+#Exclude vs code folder
+.vs_code/

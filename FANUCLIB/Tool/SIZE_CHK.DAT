@@ -1,0 +1,38 @@
+
+rem
+rem check application size
+rem
+
+set CHK_TOOL=%TOOLPATH%\sizecheck
+
+set FROM_LIM=0x800000
+if /i "%S_TYPE%"=="FS30iB" set FROM_LIM=0x1000000
+
+set AUT_SIZ=0xCHK_SIZE
+if 0xCHK_SIZE GTR %FROM_LIM% set AUT_SIZ=%FROM_LIM%
+
+set F_SIZE_NUM=0
+if "%F_SIZE%"=="0_5M" set F_SIZE_NUM=080000
+if "%F_SIZE%"=="1_0M" set F_SIZE_NUM=100000
+if "%F_SIZE%"=="1_5M" set F_SIZE_NUM=180000
+if "%F_SIZE%"=="2_0M" set F_SIZE_NUM=200000
+if "%F_SIZE%"=="2_5M" set F_SIZE_NUM=280000
+if "%F_SIZE%"=="3_0M" set F_SIZE_NUM=300000
+if "%F_SIZE%"=="3_5M" set F_SIZE_NUM=380000
+if "%F_SIZE%"=="4_0M" set F_SIZE_NUM=400000
+if "%F_SIZE%"=="5_0M" set F_SIZE_NUM=500000
+if "%F_SIZE%"=="6_0M" set F_SIZE_NUM=600000
+if "%F_SIZE%"=="7_0M" set F_SIZE_NUM=700000
+if "%F_SIZE%"=="8_0M" set F_SIZE_NUM=800000
+if "%F_SIZE%"=="9_0M" set F_SIZE_NUM=900000
+if "%F_SIZE%"=="A_0M" set F_SIZE_NUM=A00000
+if "%F_SIZE%"=="B_0M" set F_SIZE_NUM=B00000
+if "%F_SIZE%"=="C_0M" set F_SIZE_NUM=C00000
+if "%F_SIZE%"=="D_0M" set F_SIZE_NUM=D00000
+if "%F_SIZE%"=="E_0M" set F_SIZE_NUM=E00000
+if "%F_SIZE%"=="F_0M" set F_SIZE_NUM=F00000
+if "%F_SIZE%"=="16MB" set F_SIZE_NUM=1000000
+if "%F_SIZE%"=="AUTO" set F_SIZE_NUM=%AUT_SIZ%
+
+%CHK_TOOL% %F_SIZE_NUM% DRAM_END
+

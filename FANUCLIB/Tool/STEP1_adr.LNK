@@ -1,0 +1,92 @@
+MEMORY
+{
+    cex_heada1 : ORIGIN = 0x50000000, LENGTH = 0x014C
+    cex_ver : ORIGIN = 0x5000014C, LENGTH = 0x0c
+    cex_heada2 : ORIGIN = 0x50000158, LENGTH = 8
+    cex_headb1 : ORIGIN = 0x50000160, LENGTH = 4
+    cex_headb2 : ORIGIN = 0x50000164, LENGTH = 4
+    cex_headb3 : ORIGIN = 0x50000168, LENGTH = 4
+    cex_headb4 : ORIGIN = 0x5000016c, LENGTH = 4
+    cex_headb5 : ORIGIN = 0x50000170, LENGTH = 4
+    cex_headb6 : ORIGIN = 0x50000174, LENGTH = 4
+    cex_heada3 : ORIGIN = 0x50000178, LENGTH = 0x00a8
+    cex_task : ORIGIN = 0x00000000, LENGTH = 0x600000
+    cex_common : ORIGIN = 0x00600000, LENGTH = 0x100000
+    cex_sram : ORIGIN = 0xSRAM_TOP, LENGTH = 0xSRAM_LEN+1
+    cex_dram : ORIGIN = 0x00700000, LENGTH = 0x100000
+}
+
+SECTIONS
+{
+
+    .ver_bss : {
+        Version.O(.bss)
+    } > cex_ver
+
+    .ver_data : {
+        Version.O(.data)
+    } > cex_ver
+
+    .sram_bss : {
+        SRAMVER.o(.bss)
+    } > cex_sram
+
+    .sram_data : {
+        SRAMVER.o(.data)
+    } > cex_sram
+
+    .sram_end : {
+        /* Sezione vuota per segnare la fine della SRAM */
+    } > cex_sram
+
+    .dram_bss : {
+        DRAMVER.o(.bss)
+    } > cex_dram
+
+    .dram_data : {
+        DRAMVER.o(.data)
+    } > cex_dram
+
+    .dram_end : {
+        /* Sezione vuota per segnare la fine della DRAM */
+    } > cex_dram
+
+    .romfoot : {
+        /* Sezione vuota per segnare la fine della ROM */
+    } > cex_dram
+
+    .cexe_env : {} > cex_common
+    .cexe_env1 : {
+        .\FANUCLIB\Lib\cexe_lib.o(.bss) 
+    } > cex_common
+    .jmp_table : {} > cex_common
+    .comm_end : {} > cex_common
+
+    .romheada1 : {} > cex_heada1
+    .romheada2 : {} > cex_heada2
+#[1]
+	.romhead1 : {} > cex_headb1
+#[2]
+	.romhead2 : {} > cex_headb2
+#[3]
+	.romhead3 : {} > cex_headb3
+#[4]
+	.romhead4 : {} > cex_headb4
+#[5]
+	.romhead5 : {} > cex_headb5
+#[6]
+	.romhead6 : {} > cex_headb6
+#[]
+	.romheada3 : {} > cex_heada3
+
+    .text : {} > cex_task
+    .data : {} > cex_task
+    .sdata : {} > cex_task
+    .bss : {} > cex_task
+    .sbss : {} > cex_task
+    .cexe_code : {} > cex_task
+    .cexe_data : {} > cex_task
+    .cex_end : {
+        _cex_end = .;
+    } > cex_task
+}
