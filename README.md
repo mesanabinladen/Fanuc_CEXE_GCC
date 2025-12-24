@@ -54,6 +54,7 @@ cd Fanuc_CEXE_GCC
 ```powershell
 .\compile.bat
 ```
+Upon successful compilation, cexec.mem will be created in the root directory, along with all temporary files generated during the build process.
 
 ## Notes ##
 
